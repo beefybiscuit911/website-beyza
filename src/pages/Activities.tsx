@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { MapPin, Users, Filter, Search, Heart, X } from "lucide-react";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { LoginModal } from "@/components/auth/LoginModal";
+import { AppInstallModal } from "@/components/auth/AppInstallModal";
 import categoryArts from "@/assets/category-arts.jpg";
 import categorySports from "@/assets/category-sports.jpg";
 import categoryMusic from "@/assets/category-music.jpg";
@@ -122,10 +125,13 @@ const categories = [
 ];
 
 const Activities = () => {
+  const { isLoggedIn } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [appInstallModalOpen, setAppInstallModalOpen] = useState(false);
 
   const filteredActivities = allActivities
     .filter((activity) => {
@@ -159,9 +165,13 @@ const Activities = () => {
   };
 
   const handleBooking = (activity: typeof allActivities[0]) => {
-    toast.success(`Booking request received for "${activity.title}"!`, {
-      description: "We'll get in touch with you shortly."
-    });
+    if (!isLoggedIn) {
+      // Show login modal for non-logged-in users
+      setLoginModalOpen(true);
+    } else {
+      // Show app install modal for logged-in users
+      setAppInstallModalOpen(true);
+    }
   };
 
   return (
@@ -171,6 +181,9 @@ const Activities = () => {
         description="Discover hundreds of age-appropriate activities for children in your area. From sports to arts, STEM to music - find the perfect experience for your child."
         canonical="/activities"
       />
+      
+      <LoginModal open={loginModalOpen} onOpenChange={setLoginModalOpen} />
+      <AppInstallModal open={appInstallModalOpen} onOpenChange={setAppInstallModalOpen} />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-coral-light/20 to-background section-padding py-12 md:py-16">
