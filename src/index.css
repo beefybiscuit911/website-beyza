@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    /* Warm, family-friendly palette */
+    --background: 30 50% 98%;
+    --foreground: 220 20% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+
+    /* Warm coral - energetic, friendly */
+    --primary: 0 85% 70%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Soft teal - trustworthy, calm */
+    --secondary: 168 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Cream/warm gray for muted surfaces */
+    --muted: 30 30% 94%;
+    --muted-foreground: 220 15% 45%;
+
+    /* Sunny yellow accent */
+    --accent: 45 95% 65%;
+    --accent-foreground: 220 20% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 0 85% 70%;
+
+    --radius: 1rem;
+
+    /* Custom semantic tokens */
+    --coral: 0 85% 70%;
+    --coral-light: 0 85% 85%;
+    --coral-dark: 0 75% 55%;
+    
+    --teal: 168 60% 55%;
+    --teal-light: 168 60% 75%;
+    --teal-dark: 168 60% 40%;
+    
+    --sunshine: 45 95% 65%;
+    --sunshine-light: 45 95% 80%;
+    
+    --lavender: 260 60% 75%;
+    --mint: 150 60% 75%;
+    
+    --cream: 30 50% 98%;
+    --cream-dark: 30 30% 94%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--coral)) 0%, hsl(var(--coral-dark)) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(var(--teal)) 0%, hsl(var(--teal-dark)) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(var(--cream)) 0%, hsl(var(--cream-dark)) 100%);
+    --gradient-sunshine: linear-gradient(135deg, hsl(var(--sunshine)) 0%, hsl(var(--accent)) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(220 20% 20% / 0.08);
+    --shadow-medium: 0 8px 30px -4px hsl(220 20% 20% / 0.12);
+    --shadow-large: 0 20px 50px -10px hsl(220 20% 20% / 0.15);
+    --shadow-coral: 0 10px 40px -10px hsl(var(--coral) / 0.4);
+    --shadow-teal: 0 10px 40px -10px hsl(var(--teal) / 0.4);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 30 30% 95%;
+
+    --card: 220 20% 14%;
+    --card-foreground: 30 30% 95%;
+
+    --popover: 220 20% 14%;
+    --popover-foreground: 30 30% 95%;
+
+    --primary: 0 85% 70%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 168 60% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 20% 18%;
+    --muted-foreground: 220 15% 65%;
+
+    --accent: 45 95% 65%;
+    --accent-foreground: 220 20% 10%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 20% 22%;
+    --input: 220 20% 22%;
+    --ring: 0 85% 70%;
+
+    --cream: 220 20% 10%;
+    --cream-dark: 220 20% 14%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Nunito', sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-16 md:py-24;
+  }
+
+  .container-width {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-hero);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1;
+    &:hover {
+      box-shadow: var(--shadow-medium);
+    }
+  }
+
+  .btn-shadow-coral {
+    box-shadow: var(--shadow-coral);
+  }
+
+  .btn-shadow-teal {
+    box-shadow: var(--shadow-teal);
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out 2s infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.4s ease-out forwards;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
