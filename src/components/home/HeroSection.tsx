@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Download, Sparkles } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from "react";
+import { AppInstallModal } from "@/components/auth/AppInstallModal";
 import heroImage from "@/assets/hero-families.jpg";
 
 const HeroSection = () => {
+  const [appInstallModalOpen, setAppInstallModalOpen] = useState(false);
+
   const handleDownloadApp = () => {
-    toast.success("App download link sent to your email!", {
-      description: "Check your email for App Store and Google Play links."
-    });
+    setAppInstallModalOpen(true);
   };
 
   return (
@@ -106,6 +107,7 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
+      <AppInstallModal open={appInstallModalOpen} onOpenChange={setAppInstallModalOpen} />
     </section>
   );
 };

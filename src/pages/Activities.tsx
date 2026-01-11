@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { MapPin, Users, Filter, Search, Heart, X } from "lucide-react";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
+import { useFavourites } from "@/hooks/useFavourites";
 import { LoginModal } from "@/components/auth/LoginModal";
+import { RegistrationModal } from "@/components/auth/RegistrationModal";
 import { AppInstallModal } from "@/components/auth/AppInstallModal";
 import categoryArts from "@/assets/category-arts.jpg";
 import categorySports from "@/assets/category-sports.jpg";
@@ -126,11 +128,12 @@ const categories = [
 
 const Activities = () => {
   const { isLoggedIn } = useAuth();
+  const { isFavourite, toggleFavourite } = useFavourites();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("recommended");
-  const [favorites, setFavorites] = useState<number[]>([]);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
   const [appInstallModalOpen, setAppInstallModalOpen] = useState(false);
 
   const filteredActivities = allActivities
@@ -154,13 +157,12 @@ const Activities = () => {
       }
     });
 
-  const toggleFavorite = (id: number) => {
-    if (favorites.includes(id)) {
-      setFavorites(favorites.filter((f) => f !== id));
-      toast.info("Removed from favourites");
-    } else {
-      setFavorites([...favorites, id]);
+  const handleToggleFavorite = (activity: typeof allActivities[0]) => {
+    const wasAdded = toggleFavourite(activity);
+    if (wasAdded) {
       toast.success("Added to favourites!");
+    } else {
+      toast.info("Removed from favourites");
     }
   };
 
@@ -182,7 +184,16 @@ const Activities = () => {
         canonical="/activities"
       />
       
-      <LoginModal open={loginModalOpen} onOpenChange={setLoginModalOpen} />
+      <LoginModal 
+        open={loginModalOpen} 
+        onOpenChange={setLoginModalOpen}
+        onSwitchToRegister={() => setRegistrationModalOpen(true)}
+      />
+      <RegistrationModal 
+        open={registrationModalOpen} 
+        onOpenChange={setRegistrationModalOpen}
+        onSwitchToLogin={() => setLoginModalOpen(true)}
+      />
       <AppInstallModal open={appInstallModalOpen} onOpenChange={setAppInstallModalOpen} />
 
       {/* Hero Section */}
@@ -292,14 +303,14 @@ const Activities = () => {
                       </span>
                     </div>
                     <button
-                      onClick={() => toggleFavorite(activity.id)}
+                      onClick={() => handleToggleFavorite(activity)}
                       className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                        favorites.includes(activity.id)
+                        isFavourite(activity.id)
                           ? "bg-primary text-primary-foreground"
                           : "bg-card/90 backdrop-blur text-muted-foreground hover:text-primary"
                       }`}
                     >
-                      <Heart size={18} className={favorites.includes(activity.id) ? "fill-current" : ""} />
+                      <Heart size={18} className={isFavourite(activity.id) ? "fill-current" : ""} />
                     </button>
                   </div>
 

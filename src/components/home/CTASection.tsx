@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from "react";
+import { AppInstallModal } from "@/components/auth/AppInstallModal";
 
 const providerBenefits = [
   "Reach thousands of local families",
@@ -11,10 +12,10 @@ const providerBenefits = [
 ];
 
 const CTASection = () => {
+  const [appInstallModalOpen, setAppInstallModalOpen] = useState(false);
+
   const handleDownloadApp = () => {
-    toast.success("App download link sent to your email!", {
-      description: "Check your email for App Store and Google Play links."
-    });
+    setAppInstallModalOpen(true);
   };
 
   return (
@@ -64,6 +65,7 @@ const CTASection = () => {
           </div>
         </div>
       </div>
+      <AppInstallModal open={appInstallModalOpen} onOpenChange={setAppInstallModalOpen} />
     </section>
   );
 };

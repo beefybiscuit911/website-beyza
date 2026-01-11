@@ -10,9 +10,10 @@ import { Loader2, Mail, Lock } from "lucide-react";
 interface LoginModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onSwitchToRegister?: () => void;
 }
 
-export const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
+export const LoginModal = ({ open, onOpenChange, onSwitchToRegister }: LoginModalProps) => {
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -113,7 +114,10 @@ export const LoginModal = ({ open, onOpenChange }: LoginModalProps) => {
             <button
               type="button"
               className="text-primary hover:underline font-medium"
-              onClick={() => toast.info("Registration coming soon!")}
+              onClick={() => {
+                onOpenChange(false);
+                onSwitchToRegister?.();
+              }}
             >
               Sign up here
             </button>
