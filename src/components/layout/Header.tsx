@@ -241,7 +241,7 @@ const Header = () => {
                           <DropdownMenuLabel className="text-xs text-muted-foreground">
                             Theme
                           </DropdownMenuLabel>
-                          <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                          <DropdownMenuRadioGroup value={theme || "light"} onValueChange={setTheme}>
                             <DropdownMenuRadioItem value="light" className="cursor-pointer">
                               <Sun className="mr-2 h-4 w-4" />
                               Day

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 
 interface Activity {
   id: number;
@@ -17,7 +16,6 @@ interface Activity {
 const STORAGE_KEY = "parentgo_favourites";
 
 export const useFavourites = () => {
-  const { user } = useAuth();
   const [favourites, setFavourites] = useState<Activity[]>([]);
 
   useEffect(() => {
