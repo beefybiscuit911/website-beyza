@@ -10,7 +10,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Menu, X, User, Settings, LayoutDashboard, LogOut, Moon, Sun } from "lucide-react";
+import { Menu, X, User, Settings, LayoutDashboard, LogOut, Moon, Sun, Calendar, Heart } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "next-themes";
@@ -139,7 +139,7 @@ const Header = () => {
                     <DropdownMenuLabel className="text-xs text-muted-foreground">
                       Theme
                     </DropdownMenuLabel>
-                    <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                    <DropdownMenuRadioGroup value={theme || "light"} onValueChange={setTheme}>
                       <DropdownMenuRadioItem value="light" className="cursor-pointer">
                         <Sun className="mr-2 h-4 w-4" />
                         Day
